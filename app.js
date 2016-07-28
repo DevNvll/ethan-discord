@@ -10,7 +10,7 @@ let cmds = [];
 
  //setup command scripts
 require('./commands.json').map((name) => {
-  cmds.push(require('./commands/' + name + '.js'));
+  cmds.push(require('./commands/' + name));
 });
 
 client.loginWithToken(cfg.token);
