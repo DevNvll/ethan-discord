@@ -6,7 +6,8 @@ module.exports = {
   name: 'Steam Time',
   description: 'Get user\'s played hours on steam (owned games only)',
   command: "!steamtime <steamid>",
-  trigger: /!steamtime (.*)/i,
+  trigger: '!steamtime',
+  permissions: [],
   run: (bot, channel, message) => {
     resolveId(message.content.match(/!steamtime (.*)/i)[1], (time) => {
       time ? bot.reply(message, "Total hours played: " + time) : bot.reply(message, 'Profile is private or doesn\'t exist');
@@ -40,7 +41,6 @@ const resolveId = (id, callback) => {
   } else {
     request.get('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key='+ cfg.steamKey +'&vanityurl='+ id)
     .then((res) => {
-      console.log(res.data.response.steamid);
       getTime(res.data.response.steamid, (time) => {
         callback(time);
       });

@@ -5,6 +5,8 @@ const chalk = require('chalk');
 const fs = require('fs');
 
 const cfg = require('./botCfg.json');
+
+const checkPermissions = require('./utils/permissions');
 let cmds = [];
 
 
@@ -23,8 +25,14 @@ client.on('ready', () => {
 
 client.on("message", (message) => {
     for(let x=0; x < cmds.length; x++) {
-      if(message.content.match(cmds[x].trigger)){
-        cmds[x].run(client, message.channel, message);
+      if(message.content.startsWith(cmds[x].trigger)){
+        let hasPermission = checkPermissions(message.author, cmds[x], message, client);
+        if(hasPermission) {
+          cmds[x].run(client, message.channel, message);
+        } else {
+          client.reply(message, 'You don\'t have the permission to use this command.')
+        }
       }
     }
+
 });
