@@ -10,7 +10,7 @@ function cmd(bot) {
     });
 
   vorpal
-    .command('disconnect', 'Set the playing game')
+    .command('disconnect', 'Disconnect')
     .action(function(args, callback) {
       this.log(chalk.red('Disconnecting...'));
       bot.disconnect();
