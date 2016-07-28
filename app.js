@@ -3,8 +3,6 @@ const client = new Discord.Client();
 
 const chalk = require('chalk');
 const fs = require('fs');
-const levelup = require('levelup');
-const brain = levelup('./ethan_data');
 
 const cfg = require('./botCfg.json');
 let cmds = [];
