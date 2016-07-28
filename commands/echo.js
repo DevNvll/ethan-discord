@@ -1,12 +1,9 @@
-const core = require('../core.js');
-
-const command = {
+module.exports = {
   name: 'Echo',
   description: 'Echoes the message',
+  command: "!echo <message>",
   trigger: /!echo (.*)/i,
-  run: (channel, message) => {
-    core.client.sendMessage(channel, message.content.match(/!echo (.*)/i)[1])
+  run: (bot, channel, message) => {
+    bot.sendMessage(channel.id, message.content.match(/!echo (.*)/i)[1])
   }
 }
-
-core.addCmd(command);

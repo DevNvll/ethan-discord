@@ -1,15 +1,15 @@
-const core = require('../core.js');
 const request = require('superagent');
 const _ = require('lodash');
 const cfg = require('../botCfg.json');
 
-const command = {
+module.exports = {
   name: 'Steam Time',
   description: 'Get user\'s played hours on steam (owned games only)',
+  command: "!steamtime <steamid>",
   trigger: /!steamtime (.*)/i,
-  run: (channel, message) => {
+  run: (bot, channel, message) => {
     resolveId(message.content.match(/!steamtime (.*)/i)[1], (time) => {
-      time ? core.client.reply(message, "Total hours played: " + time) : core.client.reply(message, 'Profile is private or doesn\'t exist');
+      time ? bot.reply(message, "Total hours played: " + time) : bot.reply(message, 'Profile is private or doesn\'t exist');
     });
   }
 }
@@ -19,7 +19,7 @@ let getTime = (userid, callback) => {
   let hours = 0;
   request
   .get('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+ cfg.steamKey +'&steamid='+ userid +'&format=json')
-  .end(function(err, res){
+  .end((err, res) => {
     if(_.some(res.body.response)) {
       for(let game in res.body.response.games) {
         hours = hours + parseInt(res.body.response.games[game].playtime_forever/60);
@@ -46,5 +46,3 @@ const resolveId = (id, callback) => {
     })
   }
 }
-
-core.addCmd(command);
