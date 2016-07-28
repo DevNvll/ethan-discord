@@ -1,4 +1,4 @@
-const request = require('superagent');
+const request = require('axios');
 const _ = require('lodash');
 const cfg = require('../botCfg.json');
 
@@ -19,10 +19,10 @@ let getTime = (userid, callback) => {
   let hours = 0;
   request
   .get('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+ cfg.steamKey +'&steamid='+ userid +'&format=json')
-  .end((err, res) => {
-    if(_.some(res.body.response)) {
-      for(let game in res.body.response.games) {
-        hours = hours + parseInt(res.body.response.games[game].playtime_forever/60);
+  .then((res) => {
+    if(_.some(res.data.response)) {
+      for(let game in res.data.response.games) {
+        hours = hours + parseInt(res.data.response.games[game].playtime_forever/60);
       }
       callback(hours);
     } else {
@@ -39,8 +39,9 @@ const resolveId = (id, callback) => {
     });
   } else {
     request.get('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key='+ cfg.steamKey +'&vanityurl='+ id)
-    .end((err, res) => {
-      getTime(res.body.response.steamid, (time) => {
+    .then((res) => {
+      console.log(res.data.response.steamid);
+      getTime(res.data.response.steamid, (time) => {
         callback(time);
       });
     })
