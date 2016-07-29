@@ -2,11 +2,9 @@ let permissions = {
   "add": ['test']
 }
 
-import minimist from 'minimist';
-
 export default {
-  name: 'Echo',
-  description: 'Echoes the message',
+  name: 'Permissions Test',
+  description: 'To test permissions system for command args',
   command: '!test <message>',
   regex: /!test (.*)/i,
   trigger: '!test',
@@ -15,10 +13,10 @@ export default {
     if(message.content.match(/!test (.*)/i)) {
       let args = message.content.match(/!test (.*)/i)[1].split(' ');
       switch(args[0]) {
-        case 'add':
+        case 'add': //only for user with 'test' role
           bot.reply(message, 'Add');
           break;
-        case 'help':
+        case 'help': //for everyone
           bot.reply(message, 'Help');
           break;
         default:
