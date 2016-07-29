@@ -1,8 +1,8 @@
-const request = require('axios');
-const _ = require('lodash');
-const cfg = require('../botCfg.json');
+import request from 'axios';
+import _ from 'lodash';
+import cfg from '../../config.json';
 
-module.exports = {
+export default {
   name: 'Steam Time',
   description: 'Get user\'s played hours on steam (owned games only)',
   command: "!steamtime <steamid>",
@@ -16,7 +16,7 @@ module.exports = {
 }
 
 
-let getTime = (userid, callback) => {
+const getTime = (userid, callback) => {
   let hours = 0;
   request
   .get('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+ cfg.steamKey +'&steamid='+ userid +'&format=json')

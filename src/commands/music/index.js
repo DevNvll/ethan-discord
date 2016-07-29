@@ -1,13 +1,12 @@
 //I'M REALLY SORRY FOR THIS MESS
 //at least it's working
-const path = require('path');
-const url = require('url');
+import path from 'path';
+import url from 'url';
 
-const low = require('lowdb');
-const db = low('commands/music/queue.json');
+import low from 'lowdb';
+const db = low('./data/music_queue.json');
 
-
-const fetchMp3 = require('./getVideoMp3');
+import mp3 from './getVideoMp3';
 
 
 
@@ -43,7 +42,7 @@ const nextSong = (bot, channel, message) => {
     bot.sendMessage(channel, 'No more musics to play');
   }
 }
-module.exports = {
+export default {
   name: 'Fuck u mang',
   description: 'Ey b0ss fak yu mang',
   command: "!music",
@@ -54,16 +53,16 @@ module.exports = {
     switch (args[0]) {
         case 'add':
             if (args[1].match(/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/)) { //check if it's a valid youtube url
-              fetchMp3(url.parse(args[1]).query.split("=")[1], (videoUrl, videoTitle) => {
+              let videoid = url.parse(args[1]).query.split("=")[1];
+              mp3(videoid).then((data) => {
                 queue.push({
-                    url: videoUrl,
-                    title: videoTitle,
+                    url: data.url,
+                    title: data.title,
                     user: message.author.username
                 }).value();
-                bot.sendMessage(channel, videoTitle + ' has been added to the queue.');
-                if(db.get('queue').size().value() == 1) {
+                bot.sendMessage(channel, data.title + ' has been added to the queue.');
+                if(db.get('queue').size().value() == 1)
                   play(bot, channel, message);
-                }
               });
             } else {
                 bot.reply(message, 'Invalid youtube url')

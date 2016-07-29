@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   name: 'Fuck u mang',
   description: 'Ey b0ss fak yu mang',
   command: "!fuckumang",
