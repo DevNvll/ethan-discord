@@ -1,3 +1,5 @@
+import minimist from 'minimist';
+
 export default {
   name: 'Echo',
   description: 'Echoes the message',
@@ -6,7 +8,8 @@ export default {
   permissions: [],
   run: (bot, channel, message) => {
     if(message.content.match(/!echo (.*)/i)) {
-      bot.sendMessage(channel.id, message.content.match(/!echo (.*)/i)[1]);
+      let args = minimist(message.content.match(/!echo (.*)/i)[1].split(' '));
+      bot.sendMessage(channel.id, JSON.stringify(args));
     } else {
       bot.reply(message, 'Usage: !echo <message>');
     }
