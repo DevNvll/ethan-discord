@@ -1,10 +1,12 @@
+import _ from 'lodash';
+
 let bypassRoles = ['master'];
 
 const checkPermissions = (message, command, client) => {
 
   let user = message.author;
   let permissions = command.permissions;
-  if(!(permissions instanceof Array)) {
+  if(_.isObject(permissions)) {
 
     let userRoles = client.servers.get('id', message.server.id).rolesOfUser(user);
       if(message.content.match(command.regex)) {
