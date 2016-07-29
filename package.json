@@ -21,8 +21,9 @@
   },
   "scripts": {
     "start": "node lib/app.js",
-    "compile": "babel -d lib/ src/",
-    "dev": "babel -d lib/ src/ --watch --copy-files",
+    "clean": "rm -rf lib",
+    "compile": "npm run clean && babel -d lib/ src/ --copy-files",
+    "dev": "npm run clean && babel -d lib/ src/ --watch --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Henrick Mello <hmartins505@gmail.com>",
