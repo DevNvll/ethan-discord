@@ -49,51 +49,56 @@ export default {
   trigger: "!music",
   permissions: ['the master memer'],
   run: (bot, channel, message) => {
-    let args = message.content.match(/!music (.*)/i)[1].split(' ');
-    switch (args[0]) {
-        case 'add':
-            if (args[1].match(/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/)) { //check if it's a valid youtube url
-              let videoid = url.parse(args[1]).query.split("=")[1];
-              mp3(videoid).then((data) => {
-                queue.push({
-                    url: data.url,
-                    title: data.title,
-                    user: message.author.username
-                }).value();
-                bot.sendMessage(channel, data.title + ' has been added to the queue.');
-                if(db.get('queue').size().value() == 1)
-                  play(bot, channel, message);
-              });
+    if(message.content.match(/!music (.*)/i)) {
+      let args = message.content.match(/!music (.*)/i)[1].split(' ');
+      switch (args[0]) {
+          case 'add':
+              if (args[1].match(/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/)) { //check if it's a valid youtube url
+                let videoid = url.parse(args[1]).query.split("=")[1];
+                mp3(videoid).then((data) => {
+                  queue.push({
+                      url: data.url,
+                      title: data.title,
+                      user: message.author.username
+                  }).value();
+                  bot.sendMessage(channel, data.title + ' has been added to the queue.');
+                  if(db.get('queue').size().value() == 1)
+                    play(bot, channel, message);
+                });
+              } else {
+                  bot.reply(message, 'Invalid youtube url')
+              }
+              break;
+          case 'queue':
+              bot.reply(message, JSON.stringify(queue.value()));
+              break;
+          case 'next':
+            nextSong(bot, channel, message);
+            break;
+          case 'clear':
+            db.set('queue', []).value();
+            break;
+          case 'play':
+            if(db.get('queue').size().value()) {
+              play(bot, channel, message);
             } else {
-                bot.reply(message, 'Invalid youtube url')
+              bot.reply(message, 'No musics in queue. Use !music add <youtube url>');
             }
             break;
-        case 'queue':
-            bot.reply(message, JSON.stringify(queue.value()));
+          case 'stop':
+            bot.emit('stopMusic');
             break;
-        case 'next':
-          nextSong(bot, channel, message);
-          break;
-        case 'clear':
-          db.set('queue', []).value();
-          break;
-        case 'play':
-          if(db.get('queue').size().value()) {
-            play(bot, channel, message);
-          } else {
-            bot.reply(message, 'No musics in queue. Use !music add <youtube url>');
-          }
-          break;
-        case 'stop':
-          bot.emit('stopMusic');
-          break;
-        case 'volume':
-          bot.emit('musicVolume', args[1]);
-          break;
-        default:
-          bot.reply(message, 'Invalid argument');
-          break;
+          case 'volume':
+            bot.emit('musicVolume', args[1]);
+            break;
+          default:
+            bot.reply(message, 'Invalid argument');
+            break;
+      }
+    } else {
+      bot.reply(message, 'Invalid argument. Usage: !music <play|add|next|stop|volume|queue|clear>')
     }
+
 
 
   }

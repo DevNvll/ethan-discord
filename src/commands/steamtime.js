@@ -9,9 +9,13 @@ export default {
   trigger: '!steamtime',
   permissions: [],
   run: (bot, channel, message) => {
-    resolveId(message.content.match(/!steamtime (.*)/i)[1], (time) => {
-      time ? bot.reply(message, "Total hours played: " + time) : bot.reply(message, 'Profile is private or doesn\'t exist');
-    });
+    if(message.content.match(/!steamtime (.*)/i)) {
+      resolveId(message.content.match(/!steamtime (.*)/i)[1], (time) => {
+        time ? bot.reply(message, "Total hours played: " + time) : bot.reply(message, 'Profile is private or doesn\'t exist');
+      });
+    } else {
+      bot.reply(message, 'Invalid arguments. Usage: !steamtime <steamid|vanityurl>');
+    }
   }
 }
 

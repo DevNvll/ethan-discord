@@ -5,6 +5,11 @@ export default {
   trigger: '!echo',
   permissions: [],
   run: (bot, channel, message) => {
-    bot.sendMessage(channel.id, message.content.match(/!echo (.*)/i)[1])
+    if(message.content.match(/!echo (.*)/i)) {
+      bot.sendMessage(channel.id, message.content.match(/!echo (.*)/i)[1]);
+    } else {
+      bot.reply(message, 'Usage: !echo <message>');
+    }
+
   }
 }
