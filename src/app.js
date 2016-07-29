@@ -26,11 +26,10 @@ client.on('ready', () => {
 });
 
 client.on("message", (message) => {
-    for(let x=0; x < cmds.length; x++) {
-      if(message.content.startsWith(cmds[x].trigger)){
-        let hasPermission = checkPermissions(message.author, cmds[x], message, client);
+    for(let cmd of cmds) {
+      if(message.content.startsWith(cmd.trigger)){
         if(hasPermission) {
-          cmds[x].run(client, message.channel, message);
+          cmd.run(client, message.channel, message);
         } else {
           client.reply(message, 'You don\'t have the permission to use this command.')
         }

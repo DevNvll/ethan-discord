@@ -1,17 +1,18 @@
 let bypassRoles = ['master'];
 
-const checkPermissions = (user, command, message, client) => {
+const checkPermissions = (message, command, client) => {
 
-  var permissions = command.permissions;
+  let user = message.author;
+  let permissions = command.permissions;
 
   if(permissions.length == 0) {
     return true;
   }
 
-  var userRoles = client.servers.get('id', message.server.id).rolesOfUser(user);
+  let userRoles = client.servers.get('id', message.server.id).rolesOfUser(user);
 
-  for(var i = 0; i < userRoles.length; i++) {
-    if(inArray(userRoles[i].name.toLowerCase(), permissions) || inArray(userRoles[i].name.toLowerCase(), bypassRoles)) {
+  for(let role of userRoles) {
+    if(inArray(role.name.toLowerCase(), permissions) || inArray(role.name.toLowerCase(), bypassRoles)) {
       return true;
     }
   }
@@ -21,9 +22,8 @@ const checkPermissions = (user, command, message, client) => {
 }
 
 const inArray = (needle, haystack) => {
-    var length = haystack.length;
-    for(var i = 0; i < length; i++) {
-        if(haystack[i] == needle) return true;
+    for(let item of haystack) {
+        if(item == needle) return true;
     }
     return false;
 }
