@@ -9,7 +9,8 @@ export default {
   run: (bot, channel, message) => {
     if(message.content.match(/!echo (.*)/i)) {
       let args = minimist(message.content.match(/!echo (.*)/i)[1].split(' '));
-      bot.sendMessage(channel.id, JSON.stringify(args));
+      let msg = message.content.match(/!echo (.*)/i)[1];
+      bot.sendMessage(channel.id, Object.keys(args).length > 1 ? JSON.stringify(args) : msg);
     } else {
       bot.reply(message, 'Usage: !echo <message>');
     }
