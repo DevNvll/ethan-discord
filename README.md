@@ -1,16 +1,25 @@
 ![My bot for discord. His name is Ethan.](http://i.imgur.com/QK1kqz2.png)
 
+[![Build Status](https://snap-ci.com/Razr9/ethan-discord/branch/master/build_image)](https://snap-ci.com/Razr9/ethan-discord/branch/master)
 
-## Usage
+My personal Discord Bot written in Javascript. Supports custom commands, music ans permission.
 
-Blablabla
+Work in progress.
+
+
+
+## Developing
 
 ```bash
-npm install
+$ npm install
 ```
 
 ```bash
-npm start
+$ npm run dev
+$ npm start
 ```
 
-Use your own keys in ``botCfg.json``
+Use your own keys in ``config.json``
+
+## License
+MIT
