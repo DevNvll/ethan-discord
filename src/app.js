@@ -1,17 +1,16 @@
-const Discord = require("discord.js");
+import Discord from 'discord.js';
 const client = new Discord.Client();
 
-const chalk = require('chalk');
-const fs = require('fs');
+import chalk from 'chalk'
 
-const cfg = require('./botCfg.json');
+import cfg from '../config.json';
 
-const checkPermissions = require('./utils/permissions');
+import checkPermissions from './utils/permissions';
 let cmds = [];
 
 
  //setup command scripts
-require('./commands.json').map((name) => {
+require('../commands.json').map((name) => {
   cmds.push(require('./commands/' + name));
 });
 

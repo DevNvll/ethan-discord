@@ -1,9 +1,11 @@
-const vorpal = require('vorpal')();
-const chalk = require('chalk');
-function cmd(bot) {
+import vorpal from 'vorpal';
+import chalk from 'chalk';
+vorpal();
+
+const cmdline = (bot) => {
   vorpal
     .command('setpresence <game>', 'Set the playing game')
-    .action(function(args, callback) {
+    .action((args, callback) => {
       this.log('Presence set to', args.game);
       bot.setPresence({game: args.game});
       callback();
@@ -11,7 +13,7 @@ function cmd(bot) {
 
   vorpal
     .command('disconnect', 'Disconnect')
-    .action(function(args, callback) {
+    .action((args, callback) => {
       this.log(chalk.red('Disconnecting...'));
       bot.disconnect();
       process.exit(0);
@@ -19,4 +21,4 @@ function cmd(bot) {
     vorpal.delimiter('ethan> ').show();
 }
 
-module.exports = cmd;
+export default cmdline;

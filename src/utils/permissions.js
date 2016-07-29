@@ -1,6 +1,6 @@
 let bypassRoles = ['master'];
 
-module.exports = (user, command, message, client) => {
+const checkPermissions = (user, command, message, client) => {
 
   var permissions = command.permissions;
 
@@ -27,3 +27,5 @@ const inArray = (needle, haystack) => {
     }
     return false;
 }
+
+export default checkPermissions;

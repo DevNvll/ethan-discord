@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Echo',
   description: 'Echoes the message',
   command: '!echo <message>',
