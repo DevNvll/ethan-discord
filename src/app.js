@@ -17,9 +17,12 @@ require('../commands.json').map((name) => {
 client.loginWithToken(cfg.token);
 
 client.on('ready', () => {
-    console.log(chalk.green.bold("%s"), cfg.name, chalk.blue("is ready to go!"));
-    if(cfg.game) client.setPlayingGame(cfg.game);
-    if(cfg.dev) require("./utils/vorpalCmd.js")(client); //development command line
+    if(process.env.NODE_ENV != 'test')
+      console.log(chalk.green.bold("%s"), cfg.name, chalk.blue("is ready to go!"));
+    if(cfg.game)
+      client.setPlayingGame(cfg.game);
+    if(cfg.dev)
+      require("./utils/vorpalCmd.js")(client); //development command line
 });
 
 client.on("message", (message) => {
@@ -35,3 +38,5 @@ client.on("message", (message) => {
     }
 
 });
+
+export default client;
