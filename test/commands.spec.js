@@ -1,8 +1,12 @@
+//writting spec for bots...
+//here in brazil we call it "gambiarra"
+
 const client = require('../lib/app');
 let testing_channel = '208557085951000576';
 
 
 describe('Commands', function() {
+
   describe('!echo', function() {
     it('bot should send the echoed message', function(done) {
       this.timeout(10000);
@@ -15,4 +19,6 @@ describe('Commands', function() {
       });
     });
   });
+
+
 });
