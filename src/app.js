@@ -28,6 +28,7 @@ client.on('ready', () => {
 client.on("message", (message) => {
     for(let cmd of cmds) {
       if(message.content.startsWith(cmd.trigger)){
+        let hasPermission = checkPermissions(message, cmd, client);
         if(hasPermission) {
           cmd.run(client, message.channel, message);
         } else {
