@@ -24,8 +24,9 @@ client.on('ready', () => {
 })
 
 client.on('message', (message) => {
+  if (message.author.bot) return
   for (let plugin of plugins) {
-    if (plugin.onMessage && message.author.id !== client.user.id) {
+    if (plugin.onMessage) {
       if (message.content.startsWith(plugin.trigger + ' ')) {
         let hasPermission = checkPermissions(message, plugin, client)
         if (hasPermission) {
