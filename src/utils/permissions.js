@@ -1,54 +1,37 @@
-import _ from 'lodash';
+import isObject from 'lodash/isObject'
 
-let bypassRoles = ['master'];
+let bypassRoles = ['master']
 
 const checkPermissions = (message, command, client) => {
-
-  let user = message.author;
-  let permissions = command.permissions;
-  if(_.isObject(permissions)) {
-
-    let userRoles = client.servers.get('id', message.server.id).rolesOfUser(user);
-      if(message.content.match(command.regex)) {
-        if(message.content.match(command.regex)[1] in permissions) {
-          for(let role of userRoles) {
-            if(inArray(role.name.toLowerCase(), permissions[message.content.match(command.regex)[1]]) || inArray(role.name.toLowerCase(), bypassRoles)) {
-              return true;
-            }
-          }
-        } else {
-          return true;
+  let user = message.author
+  let permissions = command.permissions
+  if (isObject(permissions)) {
+    let userRoles = message.guild.member(user).roles
+    if (message.content.match(command.regex)) {
+      if (message.content.match(command.regex)[1] in permissions) {
+        if (userRoles.exists('name', permissions[message.content.match(command.regex)[1]]) || userRoles.exists('name', bypassRoles)) {
+          return true
         }
       } else {
         return true
       }
-
+    } else {
+      return true
+    }
   } else {
-    if(permissions.length == 0) {
-      return true;
+    if (permissions.length === 0) {
+      return true
     }
 
-    let userRoles = client.servers.get('id', message.server.id).rolesOfUser(user);
+    let userRoles = message.guild.member(user).roles
 
-    for(let role of userRoles) {
-      if(inArray(role.name.toLowerCase(), permissions) || inArray(role.name.toLowerCase(), bypassRoles)) {
-        return true;
+    for (let role of userRoles) {
+      if (userRoles.exists('name', permissions[message.content.match(command.regex)[1]]) || userRoles.exists('name', bypassRoles)) {
+        return true
       }
     }
   }
-
-  return false;
-
+  return false
 }
 
-
-//thanks to Paolo Bergantino in http://stackoverflow.com/questions/784012/javascript-equivalent-of-phps-in-array
-const inArray = (needle, haystack) => {
-  let length = haystack.length;
-  for(let i = 0; i < length; i++) {
-      if(haystack[i] == needle) return true;
-  }
-  return false;
-}
-
-export default checkPermissions;
+export default checkPermissions

@@ -1,5 +1,5 @@
 let permissions = {
-  "add": ['test']
+  'add': ['test']
 }
 
 export default {
@@ -10,22 +10,21 @@ export default {
   trigger: '!test',
   permissions: permissions,
   run: (bot, channel, message) => {
-    if(message.content.match(/!test (.*)/i)) {
-      let args = message.content.match(/!test (.*)/i)[1].split(' ');
-      switch(args[0]) {
-        case 'add': //only for user with 'test' role
-          bot.reply(message, 'Add');
-          break;
-        case 'help': //for everyone
-          bot.reply(message, 'Help');
-          break;
+    if (message.content.match(/!test (.*)/i)) {
+      let args = message.content.match(/!test (.*)/i)[1].split(' ')
+      switch (args[0]) {
+        case 'add': // only for user with 'test' role
+          message.reply('Add')
+          break
+        case 'help': // for everyone
+          message.reply('Help')
+          break
         default:
-          bot.reply(message, 'Invalid arg');
-          break;
+          message.reply('Invalid arg')
+          break
       }
     } else {
-      bot.reply(message, 'Usage: !test <message>');
+      message.reply('Usage: !test <message>')
     }
-
   }
 }

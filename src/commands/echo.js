@@ -1,4 +1,4 @@
-import minimist from 'minimist';
+import minimist from 'minimist'
 
 export default {
   name: 'Echo',
@@ -7,13 +7,12 @@ export default {
   trigger: '!echo',
   permissions: [],
   run: (bot, channel, message) => {
-    if(message.content.match(/!echo (.*)/i)) {
-      let args = minimist(message.content.match(/!echo (.*)/i)[1].split(' '));
-      let msg = message.content.match(/!echo (.*)/i)[1];
-      bot.sendMessage(channel.id, Object.keys(args).length > 1 ? JSON.stringify(args) : msg);
+    if (message.content.match(/!echo (.*)/i)) {
+      let args = minimist(message.content.match(/!echo (.*)/i)[1].split(' '))
+      let msg = message.content.match(/!echo (.*)/i)[1]
+      channel.sendMessage(Object.keys(args).length > 1 ? JSON.stringify(args) : msg)
     } else {
-      bot.reply(message, 'Usage: !echo <message>');
+      message.reply('Usage: !echo <message>')
     }
-
   }
 }

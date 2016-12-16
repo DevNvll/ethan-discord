@@ -39,3 +39,4 @@ jspm_packages
 
 # Compiled sources
 lib
+config.json
