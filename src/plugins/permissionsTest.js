@@ -9,7 +9,7 @@ export default {
   regex: /!test (.*)/i,
   trigger: '!test',
   permissions: permissions,
-  run: (bot, channel, message) => {
+  onMessage: (bot, channel, message) => {
     if (message.content.match(/!test (.*)/i)) {
       let args = message.content.match(/!test (.*)/i)[1].split(' ')
       switch (args[0]) {

@@ -6,7 +6,7 @@ export default {
   command: '!fuckumang',
   trigger: '!fuckumang',
   permissions: ['The Master Memer'],
-  run: (bot, channel, message) => {
+  onMessage: (bot, channel, message) => {
     message.member.voiceChannel.join().then((connection) => {
       const dispatcher = connection.playFile(path.join(__dirname, 'assets', 'fuckumang.mp3'), {volume: 1})
       dispatcher.on('end', () => {

@@ -4,8 +4,8 @@ let bypassRoles = ['master']
 
 const checkPermissions = (message, command, client) => {
   let user = message.author
-  let permissions = command.permissions
-  if (isObject(permissions)) {
+  let permissions = command.permissions || []
+  if (command.permissions && isObject(command.permissions)) {
     let userRoles = message.guild.member(user).roles
     if (message.content.match(command.regex)) {
       if (message.content.match(command.regex)[1] in permissions) {

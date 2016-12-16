@@ -6,7 +6,7 @@ export default {
   command: '!echo <message>',
   trigger: '!echo',
   permissions: [],
-  run: (bot, channel, message) => {
+  onMessage: (bot, channel, message) => {
     if (message.content.match(/!echo (.*)/i)) {
       let args = minimist(message.content.match(/!echo (.*)/i)[1].split(' '))
       let msg = message.content.match(/!echo (.*)/i)[1]

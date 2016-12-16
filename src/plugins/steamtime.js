@@ -8,7 +8,7 @@ export default {
   command: '!steamtime <steamid>',
   trigger: '!steamtime',
   permissions: [],
-  run: (bot, channel, message) => {
+  onMessage: (bot, channel, message) => {
     if (message.content.match(/!steamtime (.*)/i)) {
       resolveId(message.content.match(/!steamtime (.*)/i)[1], (time) => {
         time ? message.reply('Total hours played: ' + time) : message.reply(message, 'Profile is private or doesn\'t exist')
