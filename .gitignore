@@ -38,5 +38,6 @@ jspm_packages
 .node_repl_history
 
 # Compiled sources
-lib
-config.json
+build
+.env
+now-secrets.json
