@@ -1,7 +1,7 @@
 {
-  "name": "ethan-discord",
-  "version": "1.6.1",
-  "description": "Ethan bot for discord",
+  "name": "isaac",
+  "version": "1.7.1",
+  "description": "Easily customizable Discord bot written in NodeJS",
   "main": "src/index.js",
   "dependencies": {
     "axios": "^0.13.1",
