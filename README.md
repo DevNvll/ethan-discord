@@ -2,7 +2,7 @@
 
 [![Build Status](https://snap-ci.com/Razr9/ethan-discord/branch/master/build_image)](https://snap-ci.com/Razr9/ethan-discord/branch/master)
 
-My personal Discord Bot written in Javascript. Supports custom commands, music ans permission.
+My personal Discord Bot written in Javascript. Supports custom commands, music and permissions.
 
 Work in progress.
 
