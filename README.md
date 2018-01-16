@@ -42,29 +42,29 @@ Example plugin:
 
 ```javascript
 export default {
-  permissions: ["Admin", "Mod"], // Only people with Admin and Mod roles will be able to use this command. Leave the array empty to everyone be able to use.
+  permissions: ['Admin', 'Mod'], // Only people with Admin and Mod roles will be able to use this command. Leave the array empty to everyone be able to use.
   onMessage(bot, channel, message) {
     //This method will be called everytime someone send a message (excluding our bot). the bot arg is the client instance, channel is the channel the message was sent and message is the user message.
-    if (message.content.startsWith("!echo")) {
+    if (message.content.startsWith('!echo')) {
       if (
         message.content.match(/!echo (.*)/i) &&
         message.content.match(/!echo (.*)/i)[1]
       ) {
-        let msg = message.content.match(/!echo (.*)/i)[1];
-        channel.send(msg);
+        let msg = message.content.match(/!echo (.*)/i)[1]
+        channel.send(msg)
       } else {
-        message.reply("Usage: !echo message");
+        message.reply('Usage: !echo message')
       }
     }
   }
-};
+}
 ```
 
-Now activate the plugin adding it to the config file `botconfig.js`.
+Now activate the plugin adding it to the config file `bot.config.js`.
 
 ```javascript
 {
-  plugins: ["echo"]; //The name must be the same as the plugin file
+  plugins: ['echo'] //The name must be the same as the plugin file
 }
 ```
 
